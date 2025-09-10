@@ -1,29 +1,71 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { View, StyleSheet, Text } from 'react-native';
+import { Stack } from 'expo-router/stack';
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import AppProvider from "../AppProvider";
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+import { useMigrationHelper } from '@/db/drizzle';
+import { DatabaseProvider } from '@/db/provider';
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
+require("../src/presets");
+
+export default function Layout() {
+  const { success, error } = useMigrationHelper();
+
+  if (error) {
+    console.log({ error });
+    return (
+      <View >
+        <Text>Migration error: {error.message}</Text>
+      </View>
+    );
   }
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+  if (!success) {
+    console.log('Đang tải');
+
+    return (
+      <View >
+        <Text>Migration is in progress...</Text>
+      </View>
+    );
+  }
+
+  return <DatabaseProvider>
+    <View style={styles.safeContainer}>
+      <AppProvider>
+        <StatusBar style='auto' />
+
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            options={{
+              presentation: "modal",
+              title: "Thêm giao dịch"
+            }}
+            name={'create-transaction'}
+          />
+          <Stack.Screen
+            options={{
+              title: "Ví của tôi"
+            }}
+            name={'wallet'}
+          />
+        </Stack>
+      </AppProvider>
+    </View>
+  </DatabaseProvider>
 }
+
+const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingBottom: 20
+  },
+})
+
