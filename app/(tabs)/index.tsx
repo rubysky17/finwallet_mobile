@@ -3,7 +3,6 @@ import { Dimensions, ScrollView } from "react-native";
 import {
     useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { useAppStore } from "AppProvider/hooks";
 
 import { LineChart } from "react-native-gifted-charts";
 import NumberStatus from '@/src/components/NumberStatus';
@@ -25,8 +24,6 @@ const widthOfCard = screen.width - (PADDING_X * 2);
 const widthOfChart = widthOfCard - (PADDING_X * 2);
 
 function HomeScreen() {
-    const app = useAppStore();
-    const { systemColorScheme } = app;
     const insets = useSafeAreaInsets();
 
     const data = [

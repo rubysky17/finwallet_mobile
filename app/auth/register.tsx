@@ -1,19 +1,16 @@
-import { View, Text, Button } from 'react-native-ui-lib';
-import { StyleSheet, Dimensions } from 'react-native';
 import { useState } from "react";
+import { useRouter } from "expo-router";
 
 import { CTextInput } from "src/components/TextInput";
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-import { useAppStore } from 'AppProvider/hooks';
+import { View, Text, Button } from 'react-native-ui-lib';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const screen = Dimensions.get('screen');
-const GAP = 30;
+const GAP = 20;
 
 function RegisterScreen({ navigation }: any) {
-    const app = useAppStore();
-    const { systemColorScheme } = app;
     const [show, setShow] = useState(false);
+    const router = useRouter();
 
     return (
         <View
@@ -72,16 +69,16 @@ function RegisterScreen({ navigation }: any) {
                                 placeholder='Nhập mật khẩu của bạn'
                                 secureTextEntry={!show}
                                 isHasIcon
-                                rightIcon={
-                                    <Icon
-                                        onPress={() => {
-                                            setShow(!show)
-                                        }}
-                                        name={!show ? "eye-slash" : "eye"}
-                                        size={20}
-                                        color="#1A1C1E"
-                                    />
-                                }
+                            // rightIcon={
+                            //     <Icon
+                            //         onPress={() => {
+                            //             setShow(!show)
+                            //         }}
+                            //         name={!show ? "eye-slash" : "eye"}
+                            //         size={20}
+                            //         color="#1A1C1E"
+                            //     />
+                            // }
                             />
                         </View>
 
@@ -94,16 +91,16 @@ function RegisterScreen({ navigation }: any) {
                                 placeholder='Nhập lại mật khẩu của bạn'
                                 secureTextEntry={!show}
                                 isHasIcon
-                                rightIcon={
-                                    <Icon
-                                        onPress={() => {
-                                            setShow(!show)
-                                        }}
-                                        name={!show ? "eye-slash" : "eye"}
-                                        size={20}
-                                        color="#1A1C1E"
-                                    />
-                                }
+                            // rightIcon={
+                            //     <Icon
+                            //         onPress={() => {
+                            //             setShow(!show)
+                            //         }}
+                            //         name={!show ? "eye-slash" : "eye"}
+                            //         size={20}
+                            //         color="#1A1C1E"
+                            //     />
+                            // }
                             />
                         </View>
                     </View>
@@ -138,7 +135,7 @@ function RegisterScreen({ navigation }: any) {
                         Bạn đã có tài khoản?
                     </Text>
 
-                    <Button link textSm medium neutral500 label={"Đăng nhập"} onPress={() => navigation.navigate('Login')} />
+                    <Button link textSm medium neutral500 label={"Đăng nhập"} onPress={() => router.back()} />
                 </View>
             </View>
         </View>

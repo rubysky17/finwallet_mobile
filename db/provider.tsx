@@ -1,13 +1,13 @@
 import { ExpoSQLiteDatabase } from "drizzle-orm/expo-sqlite";
 import { SQLJsDatabase } from "drizzle-orm/sql-js";
-import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
+import { PropsWithChildren, useContext, useEffect, useState, createContext } from "react";
 import { initialize } from "./drizzle";
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 import { openDatabaseSync } from "expo-sqlite";
 
 type ContextType = { db: SQLJsDatabase | ExpoSQLiteDatabase | null }
 
-export const DatabaseContext = React.createContext<ContextType>({ db: null });
+export const DatabaseContext = createContext<ContextType>({ db: null });
 const expoDb = openDatabaseSync("database.db");
 
 export const useDatabase = () => useContext(DatabaseContext);

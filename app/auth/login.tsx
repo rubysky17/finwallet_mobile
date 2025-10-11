@@ -1,17 +1,31 @@
 import { useState } from "react";
+import { useRouter } from "expo-router";
+
 import { View, Text, Button } from 'react-native-ui-lib';
 import { StyleSheet, Dimensions } from 'react-native';
 import { CTextInput } from "src/components/TextInput";
-import Icon from 'react-native-vector-icons/FontAwesome';
-
-import { useAppStore } from 'AppProvider/hooks';
+import { useAuth } from "@/contexts/auth";
+import { AUTH_KEY } from "@/src/constants/General";
+import { useAsyncStorage } from "@/src/hooks/useAsyncStore";
 
 const screen = Dimensions.get('screen');
 
-function LoginScreen({ navigation }: any) {
-    const app = useAppStore();
-    const { systemColorScheme } = app;
+function LoginScreen() {
     const [show, setShow] = useState(false);
+    const router = useRouter();
+    const { actions } = useAuth();
+    const { getStorage, setStorage } = useAsyncStorage();
+
+    const handlePressUseWithoutAccount = async () => {
+        const authStatus: any = await getStorage(AUTH_KEY);
+        actions.setGuest(false);
+        actions.setOnboarding(true);
+
+        await setStorage(AUTH_KEY, {
+            ...authStatus,
+            isGuest: false
+        })
+    }
 
     return (
         <View
@@ -32,13 +46,14 @@ function LoginScreen({ navigation }: any) {
 
                     >
                         <Text text2Xl semibold secondary500>
-                            Đăng nhập tài khoản của bạn
+                            Đăng nhập
                         </Text>
+
 
                         <Text textBase regular secondary400 style={{
                             marginTop: 10
                         }}>
-                            Nếu đã có tài khoản hãy đăng nhập bên dưới
+                            Vui lòng đăng nhập để tiếp tục sử dụng ứng dụng
                         </Text>
                     </View>
 
@@ -56,16 +71,16 @@ function LoginScreen({ navigation }: any) {
                                 placeholder='Nhập mật khẩu của bạn'
                                 secureTextEntry={!show}
                                 isHasIcon
-                                rightIcon={
-                                    <Icon
-                                        onPress={() => {
-                                            setShow(!show)
-                                        }}
-                                        name={!show ? "eye-slash" : "eye"}
-                                        size={20}
-                                        color="#1A1C1E"
-                                    />
-                                }
+                            // rightIcon={
+                            //     <Icon
+                            //         onPress={() => {
+                            //             setShow(!show)
+                            //         }}
+                            //         name={!show ? "eye-slash" : "eye"}
+                            //         size={20}
+                            //         color="#1A1C1E"
+                            //     />
+                            // }
                             />
                         </View>
                     </View>
@@ -75,12 +90,20 @@ function LoginScreen({ navigation }: any) {
                         alignItems: 'flex-end',
                         width: "100%"
                     }}>
-                        <Button link textSm medium neutral500 label={"Quên mật khẩu?"} />
+                        <Button
+                            link
+                            textSm
+                            medium
+                            neutral500
+                            label={"Quên mật khẩu?"}
+                            onPress={() => router.push('/auth/forgotPassword')}
+                        />
                     </View>
 
-                    <View style={{
-                        marginTop: 40
-                    }}>
+                    <View
+                        style={{
+                            marginTop: 40
+                        }}>
                         <Button
                             size={Button.sizes.large}
                             bg-neutral600
@@ -92,7 +115,20 @@ function LoginScreen({ navigation }: any) {
                             }}
                             textLg
                             medium
-                            label={"Đăng nhập"} />
+                            label={"Đăng nhập"}
+                        />
+
+                        <Button
+                            style={{
+                                marginTop: 10
+                            }}
+                            link
+                            textSm
+                            large
+                            secondary400
+                            label={"Sử dụng không cần tài khoản"}
+                            onPress={handlePressUseWithoutAccount}
+                        />
                     </View>
                 </View>
 
@@ -108,7 +144,7 @@ function LoginScreen({ navigation }: any) {
                         Bạn chưa có tài khoản?
                     </Text>
 
-                    <Button link textSm medium neutral500 label={"Đăng ký"} onPress={() => navigation.navigate('Register')} />
+                    <Button link textSm medium neutral500 label={"Đăng ký"} onPress={() => router.push('/auth/register')} />
                 </View>
             </View>
         </View>

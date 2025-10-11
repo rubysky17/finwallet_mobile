@@ -39,7 +39,6 @@ const TransactionBlock = (props) => {
                 />
             </View>
 
-
             <View style={styles.iconInputArea}>
                 <AntDesign name="inbox" size={22} color="black" style={styles.icon} />
             </View>

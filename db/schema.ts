@@ -18,7 +18,7 @@ export const wallets = sqliteTable('wallets', {
     name: text('name').notNull(),
     description: text('description').notNull(),
     walletTypeId: text("wallet_type_id")
-        .references(() => walletTypes.id, { onDelete: "restrict" }) // Khóa ngoại với ràng buộc
+        .references(() => walletTypes.id, { onDelete: "restrict" })
         .notNull(),
     enable: integer("enable", { mode: "boolean" }).default(true),
     isDefault: integer("enable", { mode: "boolean" }).default(true),

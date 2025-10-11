@@ -1,15 +1,29 @@
+import { useRouter } from "expo-router";
+import { useAuth } from "@/contexts/auth";
+import { useAsyncStorage } from "@/src/hooks/useAsyncStore";
+
 import { View, Text, Button } from 'react-native-ui-lib';
 import { View as NativeView, StyleSheet, Dimensions, Image, SafeAreaView } from 'react-native';
-import { useAppStore } from "AppProvider/hooks";
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import Constants from 'expo-constants';
+import { AUTH_KEY } from "@/src/constants/General";
+
 const screen = Dimensions.get('screen');
 
-function OnboardingScreen({ navigation }: any) {
-    const app = useAppStore();
-    const { systemColorScheme } = app;
-    const insets = useSafeAreaInsets();
+function OnboardingScreen() {
+    const { actions } = useAuth()
+    const router = useRouter();
+    const { setStorage } = useAsyncStorage();
+
+    const handlePressStart = async () => {
+        actions.setOnboarding(true);
+
+        await setStorage(AUTH_KEY, {
+            isOnboarding: false,
+            isGuest: true
+        })
+        router.push("/auth/login");
+    }
 
     return (
         <SafeAreaView style={{
@@ -28,7 +42,6 @@ function OnboardingScreen({ navigation }: any) {
 
                     }}
                     bg-white
-                // useSafeArea
                 >
                     <View style={styles.container} >
                         <View style={styles.bgColorContainerWithCurve} bg-neutral600>
@@ -74,7 +87,7 @@ function OnboardingScreen({ navigation }: any) {
                                     paddingTop: 18,
                                     paddingBottom: 18,
                                 }}
-                                onPress={() => navigation.navigate('Login')}
+                                onPress={handlePressStart}
                             />
                         </View>
                     </View>

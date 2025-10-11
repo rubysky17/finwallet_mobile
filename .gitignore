@@ -38,4 +38,8 @@ yarn-error.*
 
 app-example
 
-.DS_Store
+# Build
+android
+ios
+client.app
+build-*.tar.gz
