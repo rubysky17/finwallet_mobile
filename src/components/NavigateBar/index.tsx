@@ -1,10 +1,10 @@
-import { router } from 'expo-router';
+import { Href, router } from 'expo-router';
 import { View, Text, Button } from 'react-native-ui-lib'
 
 interface IProps {
     title: string;
     text: string;
-    url: string;
+    url: Href;
     link?: string;
 };
 export default function NavigateBar(props: IProps) {

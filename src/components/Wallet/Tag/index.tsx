@@ -1,7 +1,7 @@
 import { View, Image } from 'react-native'
 import { Colors, Text } from "react-native-ui-lib";
 
-import WalletSvg from "assets/icons/wallet.svg";
+import WalletSvg from "@/assets/icons/wallet.svg";
 
 import { formatNumber } from '@/src/helpers/helpers';
 

@@ -3,7 +3,8 @@ import { useAuth } from "@/contexts/auth";
 import { useAsyncStorage } from "@/src/hooks/useAsyncStore";
 
 import { View, Text, Button } from 'react-native-ui-lib';
-import { View as NativeView, StyleSheet, Dimensions, Image, SafeAreaView } from 'react-native';
+import { View as NativeView, StyleSheet, Dimensions, Image } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Constants from 'expo-constants';
 import { AUTH_KEY } from "@/src/constants/General";
@@ -47,7 +48,7 @@ function OnboardingScreen() {
                         <View style={styles.bgColorContainerWithCurve} bg-neutral600>
 
                             <Image
-                                source={require('assets/images/Mockup.png')}
+                                source={require('@/assets/images/Mockup.png')}
                                 resizeMode='cover'
                                 style={styles.imageCenter}
                             />

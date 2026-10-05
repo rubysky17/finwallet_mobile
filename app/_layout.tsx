@@ -23,16 +23,19 @@ const Main = () => {
 
       const authStatus: any = await getStorage(AUTH_KEY);
 
-      if (!authStatus.hasOwnProperty("isOnboarding")) {
+      // First launch: storage is empty (null), so seed the default auth status
+      if (!authStatus?.hasOwnProperty("isOnboarding")) {
         await setStorage(AUTH_KEY, {
           isOnboarding: true,
           isGuest: true
         });
+        actions.setOnboarding(true);
+        actions.setGuest(true);
       } else {
         actions.setOnboarding(authStatus.isOnboarding);
         actions.setGuest(authStatus.isGuest);
-        actions.setLoading(false);
       }
+      actions.setLoading(false);
     };
 
     handleFirstSetStorageAuth()

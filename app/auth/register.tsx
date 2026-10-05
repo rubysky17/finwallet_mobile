@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "expo-router";
 
-import { CTextInput } from "src/components/TextInput";
+import { CTextInput } from "@/src/components/TextInput";
 import { View, Text, Button } from 'react-native-ui-lib';
 import { StyleSheet, Dimensions } from 'react-native';
 

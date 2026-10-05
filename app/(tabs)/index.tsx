@@ -12,7 +12,7 @@ import Transaction from "@/src/components/Transaction";
 import NavigateBar from "@/src/components/NavigateBar";
 import CarouselContainer from '@/src/components/Carousel';
 
-import { styles } from "src/styleSheet/home/styles";
+import { styles } from "@/src/styleSheet/home/styles";
 import { formatNumber } from "@/src/helpers/helpers";
 import { SpendingDetail, TrendSpending } from '@/src/container/spending';
 

@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 
 import { View, Text, Button } from 'react-native-ui-lib';
 import { StyleSheet, Dimensions } from 'react-native';
-import { CTextInput } from "src/components/TextInput";
+import { CTextInput } from "@/src/components/TextInput";
 import { useAuth } from "@/contexts/auth";
 import { AUTH_KEY } from "@/src/constants/General";
 import { useAsyncStorage } from "@/src/hooks/useAsyncStore";

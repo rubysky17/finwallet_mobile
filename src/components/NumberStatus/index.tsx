@@ -1,5 +1,5 @@
 import { View, Text } from "react-native-ui-lib";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from '@expo/vector-icons/FontAwesome';
 
 import { styles } from "./styles";
 

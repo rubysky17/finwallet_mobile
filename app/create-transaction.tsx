@@ -1,7 +1,8 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
-import { View, StyleSheet, ScrollView, Dimensions, SafeAreaView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, StyleSheet, ScrollView, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { CTextInput } from '@/src/components/TextInput';
 import { Button } from 'react-native-ui-lib';
 import DatePicker from '@/src/components/DatePicker';
